@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: debezium-connect
+  namespace: my-kafka-project
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: debezium-connect
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: debezium-connect
+    spec:
+      containers:
+      - image: debezium/connect:1.2.0.Final
+        imagePullPolicy: IfNotPresent
+        name: debezium-connect
+        env:
+          - name: GROUP_ID
+            value: "1"
+          - name: BOOTSTRAP_SERVERS
+            value: "my-cluster-kafka-bootstrap.my-kafka-project.svc:9092"
+          - name: CONFIG_STORAGE_TOPIC
+            value: my_connect_configs
+          - name: OFFSET_STORAGE_TOPIC
+            value: my_connect_offsets
+          - name: STATUS_STORAGE_TOPIC
+            value: my_connect_statuses
+        ports:
+        - containerPort: 8083
+          name: http
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: debezium-connect
+  name: debezium-connect
+  namespace: my-kafka-project
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: http
+  selector:
+    app: debezium-connect
+  sessionAffinity: None
+  type: LoadBalancer
+
