@@ -1,4 +1,4 @@
-curl -LvvvX POST "debezium-connect.my-kafka-project.svc:8083/connectors" \
+curl -LvvvX POST "debezium-connect.my-kafka-project.svc:80/connectors" \
   -H "Accept:application/json" -H "Content-Type:application/json" \
   -d '{
       "name": "inventory-connector",
@@ -7,8 +7,8 @@ curl -LvvvX POST "debezium-connect.my-kafka-project.svc:8083/connectors" \
         "tasks.max": "1",
         "database.hostname": "mysql",
         "database.port": "3306",
-        "database.user": "mysqluser",
-        "database.password": "mysqlpw",
+        "database.user": "root",
+        "database.password": "debezium",
         "database.server.id": "184054",
         "database.server.name": "dbserver1",
         "database.whitelist": "inventory",
