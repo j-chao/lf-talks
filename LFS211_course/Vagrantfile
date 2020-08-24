@@ -1,3 +1,18 @@
+# vi: set ft=ruby :
+
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/focal64"
+
+  config.vm.box = "generic/ubuntu2004"
+
+  config.vm.define "ubuntu" do |ubuntu|
+    ubuntu.vm.box_version = "3.0.28"
+    ubuntu.vm.hostname = "ubuntu"
+    ubuntu.ssh.username= "root"
+    ubuntu.ssh.username= "vagrant"
+    ubuntu.ssh.insert_key = "true"
+    ubuntu.vm.provider :virtualbox do |vb|
+      vb.cpus = 4
+      vb.memory = 4096
+    end
+  end
 end
