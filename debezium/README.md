@@ -5,7 +5,7 @@ kubectl create ns my-kafka-project
 
 ## Deploy MySQL Database
 ### Create configmap
-kubectl create configmap mysql-config --from-file=mysql.cnf -n my-kafka-project
+kubectl apply -f mysql-config.yaml
 
 ### Deploy MySQL database
 kubectl apply -f mysql-deployment.yaml -n my-kafka-project

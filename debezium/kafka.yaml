@@ -8,8 +8,13 @@ spec:
     listeners:
       plain: {}
       tls: {}
-      external:
-        type: loadbalancer
+      #external:
+        #type: loadbalancer
+        #tls: false
+      internal:
+      - name: internal
+        port: 9093
+        type: internal
         tls: false
     storage:
       type: jbod

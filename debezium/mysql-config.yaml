@@ -45,3 +45,4 @@ data:
 kind: ConfigMap
 metadata:
   name: mysql-config
+  namespace: my-kafka-project
